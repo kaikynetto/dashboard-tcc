@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@200;400&display=swap');
+
+:root {
+  --primary-color: white;
+  --secondary-color: #6059f7;
+  --secondary-color-dark: #413abe;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Sora", sans-serif;
+  transition: 0.3s ease-in-out;
+  color: var(--primary-color);
+}
+
+body {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
