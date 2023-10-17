@@ -9,12 +9,6 @@ function MyApp({ Component, pageProps }) {
   const [email, setEmail] = useState("");
   
   useEffect(() => {
-    const email = localStorage.getItem("email");
-    if(email) {
-      setEmail(email);
-    } else {
-      router.push("/login");
-    }
   }, []);
 
     return (

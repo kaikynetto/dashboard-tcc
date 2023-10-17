@@ -4,19 +4,26 @@ import { FeedBackCard, FeedBacksContainer } from '../FeedBacks/FeedBacksElements
 import axios from 'axios';
 import { AiOutlineUser, AiOutlineMail } from 'react-icons/ai';
 import { MdPassword } from 'react-icons/md';
+import { db } from '../../firebase';
 
 export default function Users() {
   const [users, setUsers] = useState([]);
 
   useEffect(() =>{ 
-    axios
-    .get('http://localhost/artemis-api/tasking/getusers.php')
-    .then((res) => {
-      setUsers(res.data);
-    })
-    .catch((error) => {
-      console.error('Error retrieving users:', error);
-    });
+    
+    const fetchUsers = async () => {
+      const usersCollection = db.collection('users');
+      const snapshot = await usersCollection.get();
+      const userList = [];
+
+      snapshot.forEach((doc) => {
+        userList.push({ id: doc.id, ...doc.data() });
+      });
+
+      setUsers(userList);
+    };
+
+    fetchUsers();
   }, [])
 
   return (
@@ -34,10 +41,6 @@ export default function Users() {
                     <div style={{display: 'flex', marginBottom: 20, alignItems: 'center'}}>
                         <AiOutlineMail size={32} fill='var(--secondary-color)'/>
                         <p style={{marginLeft: 10, color: "var(--secondary-color)", fontSize: 18}}>{item.email}</p>
-                    </div>
-                    <div style={{display: 'flex', marginBottom: 20, alignItems: 'center'}}>
-                        <MdPassword size={32} fill='var(--secondary-color)'/>
-                        <p style={{marginLeft: 10,color: "var(--secondary-color)", fontSize: 18}}>{item.password}</p>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center'}}>
                         <AiOutlineUser size={32} fill='var(--secondary-color)'/>

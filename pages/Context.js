@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
+import { db } from '../src/firebase';
 
 export const AuthContext = createContext();
 
@@ -8,28 +9,23 @@ export default function AuthProvider({ children }) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios
-      .get('http://localhost/artemis-api/getfeedbacks.php')
-      .then((res) => {
-        setFeedBacks(res.data);
-      })
-      .catch((error) => {
-        console.error('Error retrieving feedbacks:', error);
+    const fetchUsers = async () => {
+      const usersCollection = db.collection('users');
+      const snapshot = await usersCollection.get();
+      const userList = [];
+
+      snapshot.forEach((doc) => {
+        userList.push({ id: doc.id, ...doc.data() });
       });
 
+      setUsers(userList);
+    };
 
-    axios
-    .get('http://localhost/artemis-api/tasking/getusers.php')
-    .then((res) => {
-      setUsers(res.data);
-    })
-    .catch((error) => {
-      console.error('Error retrieving users:', error);
-    });
+    fetchUsers();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ feedbacks }}>
+    <AuthContext.Provider value={{ feedbacks, users }}>
       {children}
     </AuthContext.Provider>
   );

@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import Sidebar from "../src/components/Sidebar/Sidebar";
 import FeedBacks from "../src/components/FeedBacks";
 import Users from "../src/components/Users";
+import Posts from "../src/components/Posts";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +22,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Sidebar/>
-      <FeedBacks/>
+      {/* <FeedBacks/> */}
       <Users/>
+      <Posts/>
     </>
   )
 }
