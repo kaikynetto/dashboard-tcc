@@ -32,8 +32,8 @@ export default function Posts() {
         {posts && posts.length > 0 ? (
           <>
             <p style={{ fontSize: 22 }}>Publicações</p>
-            {posts.map((item) => (
-                <FeedBackCard>
+            {posts.map((item, index) => (
+                <FeedBackCard key={index}>
                     <div style={{display: 'flex', marginBottom: 20, alignItems: 'center'}}>
                         <AiOutlineUser size={32} fill='var(--secondary-color)'/>
                         <p style={{marginLeft: 10,color: "var(--secondary-color)", fontSize: 18}}>{item.uid}</p>

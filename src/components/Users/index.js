@@ -32,8 +32,8 @@ export default function Users() {
         {users && users.length > 0 ? (
           <>
             <p style={{ fontSize: 22 }}>USUÁRIOS</p>
-            {users.map((item) => (
-                <FeedBackCard>
+            {users.map((item, index) => (
+                <FeedBackCard key={index}>
                     <div style={{display: 'flex', marginBottom: 20, alignItems: 'center'}}>
                         <AiOutlineUser size={32} fill='var(--secondary-color)'/>
                         <p style={{marginLeft: 10,color: "var(--secondary-color)", fontSize: 18}}>{item.name} {item.surname}</p>
